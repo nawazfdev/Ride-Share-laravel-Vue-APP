@@ -19,8 +19,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
-        'password',
+        'phone',
+        'login-code',
     ];
 
     /**
@@ -32,12 +32,17 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
-     public function driver(){
-        return $this->hasOne(Driver::class)
+public function routeNotificatioForTwilio()
+{
+return $this->phone;
+}
+     public function driver()
+     {
+        return $this->hasOne(Driver::class);
      }
      public function trips(){
-        return $this->hasMany(Trip::class)
+        return $this->hasMany(Trip::class);
      }
+
  
 }
