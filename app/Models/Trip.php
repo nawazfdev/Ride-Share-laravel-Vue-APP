@@ -10,9 +10,9 @@ class Trip extends Model
     use HasFactory;
     protected $guarded=[];
     public function user(){
-        return $this->belongTo(User::class)
+        return $this->belongTo(User::class);
      }
      public function driver(){
-        return $this->belongTo(Driver::class)
+        return $this->belongTo(Driver::class);
      }
 }

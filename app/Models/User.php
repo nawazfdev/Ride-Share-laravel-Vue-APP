@@ -32,10 +32,11 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-public function routeNotificatioForTwilio()
-{
-return $this->phone;
-}
+    public function routeNotificationForTwilio()
+    {
+        return $this->phone; // Replace 'phone' with the actual attribute containing the user's phone number
+    }
+    
      public function driver()
      {
         return $this->hasOne(Driver::class);

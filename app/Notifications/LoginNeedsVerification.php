@@ -6,15 +6,15 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\Twilio\TwilioChannel;
+use NotificationChannels\Twilio\TwilioSmsMessage;
 
-class LoginNeedVerification extends Notification
+class LoginNeedsVerification extends Notification
 {
     use Queueable;
 
     /**
      * Create a new notification instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -24,31 +24,31 @@ class LoginNeedVerification extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
-     * @return array
+     * @return array<int, string>
      */
     public function via(object $notifiable): array
     {
-        return [twilioChannelClass::class];
+        return [TwilioChannel::class];
     }
 
-     public function toTwilio($notifiable){
-        $loginCode=rand(111111,999999);
+    public function toTwilio($notifiable)
+    {
+        $loginCode = rand(111111, 999999);
+
         $notifiable->update([
-            'login_code'=>$loginCode
+            'login_code' => $loginCode
         ]);
-return (new TwilioSmsMessage())->content("Your login code is {$loginCode}.don't share this with anyone");
 
-
-     }
+        return (new TwilioSmsMessage())
+            ->content("Your login code is {$loginCode}, don't share this with anyone!");
+    }
 
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
-     * @return array
+     * @return array<string, mixed>
      */
-    public function toArray($notifiable)
+    public function toArray(object $notifiable): array
     {
         return [
             //

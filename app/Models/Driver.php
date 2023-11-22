@@ -11,9 +11,9 @@ class Driver extends Model
 
     protected $guarded=[];
     public function user(){
-        return $this->belongTo(User::class)
+        return $this->belongTo(User::class);
      }
      public function trips(){
-        return $this->hasMany(Driver::class)
+        return $this->hasMany(Driver::class);
      }
 }
